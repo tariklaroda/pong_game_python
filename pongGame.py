@@ -1,19 +1,22 @@
-# Tarik LaRoda A00440772
+
+# Ping-Pong Game using the turtle module.
+# Done by Tarik LaRoda.
 # Assignment 8
 # Using Python 3
 # Microsoft/VisualStudioCode/Turtle/Python3
 
+
 import turtle
 
 
-# Window
+# Create Game Window
 wind = turtle.Screen()
 wind.title('pong game')
 wind.bgcolor('blue')
 wind.setup(width=800, height=600)
 wind.tracer(0)
 
-# Bar A
+# Create The Player Bar A,
 bar_A = turtle.Turtle()
 bar_A.shape('square')
 bar_A.color('white')
@@ -21,7 +24,7 @@ bar_A.shapesize(stretch_wid=5, stretch_len=1)
 bar_A.penup()
 bar_A.goto(-350, 0)
 
-# Bar B
+# Create The Computer/Player2 Bar B
 bar_B = turtle.Turtle()
 bar_B.shape('square')
 bar_B.color('white')
@@ -29,17 +32,19 @@ bar_B.shapesize(stretch_wid=5, stretch_len=1)
 bar_B.penup()
 bar_B.goto(350, 0)
 
-# Ball
+# Create the Pong Ball
 ball = turtle.Turtle()
 ball.shape('circle')
 ball.color('white')
 ball.penup()
 ball.goto(0, 0)
+
+# Create the pong ball's initial horizontal speed and vertical speed
 ball_x = 0.1
 ball_y = 0.1
 
 
-# score
+# Create the score section, this keeps track of each player's points
 sboard = turtle.Turtle()
 sboard.shape('square')
 sboard.color('white')
@@ -51,16 +56,20 @@ sboard.write("Player A: 0 Player B: 0", align="center",
              font=("Courier", 24, 'normal'))
 score_a = 0
 score_b = 0
+
+
 # functions
 
 
 def bar_A_up():
+    """ This function moves the Player Bar A UP"""
     y = bar_A.ycor()
     y += 30
     bar_A.sety(y)
 
 
 def bar_A_down():
+    """ This function moves the Player Bar A DOWN"""
     y = bar_A.ycor()
     y -= 30
     bar_A.sety(y)
@@ -70,8 +79,6 @@ def bar_A_down():
 wind.listen()
 wind.onkeypress(bar_A_up, 'w')
 wind.onkeypress(bar_A_down, 's')
-# wind.onkeypress(bar_B_up, 'Up')
-# wind.onkeypress(bar_B_down, 'Down')
 
 
 while True:
@@ -81,7 +88,7 @@ while True:
     ball.setx(ball.xcor() + ball_x)
     ball.sety(ball.ycor() + ball_y)
 
-    # Border
+    # Conditions that ensure the ball bounces correctly once hitting the border
     if ball.ycor() > 290:
         ball.sety(290)
         ball_y *= -1
@@ -100,7 +107,7 @@ while True:
         ball_x *= -1
         score_b += 1
 
-    # score
+    # Allocate relevant score, when pong ball passes a certain point
     if ball.xcor() > 350:
         score_a += 1
         sboard.clear()
@@ -117,6 +124,7 @@ while True:
         ball_x *= -1
 
     # End game conditions
+    # Once a certain score is achieved, the scores restart.
     if score_a > 4 or score_b > 4:
         score_a = 0
         score_b = 0
